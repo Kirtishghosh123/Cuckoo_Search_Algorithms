@@ -47,7 +47,7 @@ for iter = 3 : max_iter
         for kk = 1: size(Xnew, 2)
             if Xnew(kk) > ub(kk)
                 Xnew(kk) = ub(kk);
-            elseif Xnew(kk) < lb(kk)s
+            elseif Xnew(kk) < lb(kk)
                 Xnew(kk) = lb(kk);
             end
         end
@@ -89,9 +89,17 @@ for iter = 3 : max_iter
             fx(ii, :) = fnew;
         end
     end
-
+    %Finding the optimal value
+    [optval,optind] = min(fx);
+    BestFx(iter) = optval; 
+    BestX(iter,:) = nest(optind,:);
     
-
+    disp(['Iteration' num2str(iter) ': Best Cost' num2str(BestFx(iter))]);
     
+    %% Plotting the result
+    plot(BestFx, 'LineWidth', 2);
+    xlabel('Iteration Number')
+    ylabel('Fitness Value')
+    title('Convergence Vs Iteration')
+    grid on
 end
-
